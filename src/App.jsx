@@ -13,17 +13,18 @@ const DATA = [
     { id: 5, title: '디자인 카드 2', description: '이것은 다섯 번째 카드의 설명입니다.', category: '디자인' },
     { id: 6, title: '기술 카드 3', description: '이것은 여섯 번째 카드의 설명입니다.', category: '기술' },
 ];
-const CATEGORIES = ['전체', ...new Set(DATA.map((item) => item.category))];
+const CATEGORIES = ['전체', DATA.map((item) => item.category)];
 
 export default function Home() {
     const [filterCategory, setFilterCategory] = useState('전체');
 
-    const filteredData = filterCategory === '전체' ? DATA : DATA.filter((item) => item.category === filterCategory);
+    const categories = ['전체', ...new Set(DATA.map((item)=> item.category))];
 
+    const filteredData = filterCategory === '전체' ? DATA : DATA.filter((item) => item.category === filterCategory);
     return (
         <main className="container">
             <h1>카드 렌더링</h1>
-            <Filter categories={CATEGORIES} currentFilter={filterCategory} onFilterChange={setFilterCategory} />
+            <Filter categories={categories} currentFilter={filterCategory} onFilterChange={setFilterCategory} />
             <CardList data={filteredData} />
         </main>
     );
