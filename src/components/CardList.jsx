@@ -1,15 +1,20 @@
+//CardList는 개별 카드를 출력해야 하므로, Card컴포넌트 불러오기.
 import Card from './Card';
 
-export default function CardList({ data: listData }) {
-    console.log(listData);
-    //1. listData를 받아와서 카드 리스트를 렌더링 해야 합니다.
-    //2. listData의 각 요소를 Card 컴포넌트에 props로 넘겨주어야 합니다.
-    //3. Card 컴포넌트에는 item을 넘겨주어야 합니다.
-    //4. item은 listData 요소입니다 console.log로 찍히는 listData의 정보를 확인해보세요.
-    //5. Card 컴포넌트를 map을 이용해 여러번 렌더링할 때, Card에 key를 설정해야합니다.
+//props로 받은 data를 기반으로 여러 개의 카드(card컴포넌트)를 화면에 렌더링 해주는 역할.
+//data는 상위컴포넌트 App.jsx에서 props로 전달받는 카드 목록 배열.
+export default function CardList({ data }) {
+   
     return (
-        <div className="card-grid">
-            <Card />
+        <div className="card-grid"> {/* 카드들을 그리드(격자)형식으로 보여주기 위함 */}
+
+            {/* 전달받은 카드 배열을 하나씩 반복해서 처리함. 
+            (item): 반복 중인 현재 카드 데이터 객체 */}
+            {data.map((item) => (    
+                <Card key={item.id} item={item} />
+                //item하나를 Card컴포넌트에 넘김 -> 카드 하나 생성
+                //항상 map을 돌릴 때는 고유 key 필수!
+            ))}
         </div>
     );
 }
